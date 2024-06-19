@@ -224,9 +224,8 @@ pub mod testing {
 
 #[cfg(test)]
 mod tests {
-    use crate::accounts::code::build_procedure_commitment;
-
     use super::{testing::*, AccountCode, Deserializable, Serializable};
+    use crate::accounts::code::build_procedure_commitment;
 
     #[test]
     fn test_serde() {

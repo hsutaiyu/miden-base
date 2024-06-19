@@ -1,8 +1,7 @@
 use alloc::collections::BTreeMap;
 
 use miden_lib::transaction::TransactionKernelError;
-use miden_objects::accounts::AccountCode;
-use vm_processor::{crypto::NodeIndex, AdviceProvider, Digest, ProcessState};
+use vm_processor::{AdviceProvider, Digest, ProcessState};
 
 // ACCOUNT PROCEDURE INDEX MAP
 // ================================================================================================
@@ -22,7 +21,7 @@ impl AccountProcedureIndexMap {
         // let proc_store = adv_provider.get_store_subset([account_code_root].iter());
 
         // iterate over all possible procedure indexes
-        let mut result = BTreeMap::new();
+        let result = BTreeMap::new();
 
         // for i in 0..AccountCode::MAX_NUM_PROCEDURES {
         //     let index = NodeIndex::new(AccountCode::PROCEDURE_TREE_DEPTH, i as u64)
