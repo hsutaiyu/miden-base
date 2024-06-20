@@ -1,6 +1,7 @@
 use alloc::vec::Vec;
 
 use assembly::ast::AstSerdeOptions;
+use vm_core::ZERO;
 
 use super::{
     AccountError, Assembler, AssemblyContext, ByteReader, ByteWriter, Deserializable,
@@ -36,7 +37,7 @@ impl AccountCode {
     // --------------------------------------------------------------------------------------------
 
     /// The maximum number of account interface procedures.
-    pub const MAX_NUM_PROCEDURES: usize = 2_usize.pow(16) - 1;
+    pub const MAX_NUM_PROCEDURES: usize = u16::MAX as usize;
 
     // CONSTRUCTOR
     // --------------------------------------------------------------------------------------------
@@ -183,14 +184,11 @@ impl Deserializable for AccountCode {
 // ================================================================================================
 
 fn build_procedure_commitment(procedures: &[(Digest, Felt)]) -> Digest {
-    let procedure_elements: Vec<Felt> = procedures
-        .into_iter()
-        .flat_map(|(d, i)| {
-            let mut elements = d.as_elements().to_vec();
-            elements.push(*i);
-            elements
-        })
-        .collect();
+    let mut procedure_elements = Vec::with_capacity(procedures.len() * 2);
+    for (proc_digest, storage_offset) in procedures {
+        procedure_elements.extend_from_slice(proc_digest.as_elements());
+        procedure_elements.extend_from_slice(&[*storage_offset, ZERO, ZERO, ZERO])
+    }
     Hasher::hash_elements(&procedure_elements)
 }
 
