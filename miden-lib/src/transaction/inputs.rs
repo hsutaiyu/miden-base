@@ -1,3 +1,5 @@
+use std::println;
+
 use alloc::vec::Vec;
 
 use miden_objects::{
@@ -245,11 +247,16 @@ fn add_account_to_advice_inputs(
     // --- account code -------------------------------------------------------
     let code = account.code();
 
-    // TODO: Use extend_map instead of merkle_store
-    // Pass in the procedures -> (Digest, Felt) from AccountCode
-
     // extend the merkle store with account code tree
     // inputs.extend_merkle_store(code.procedure_tree().inner_nodes());
+
+    // extend the advice_map with the account code data
+    // inputs.extend_map([(*code.procedure_commitment(), code.as_elements())]);
+
+    for (proc, _) in code.procedures() {
+        println!("proc: {:#?}", proc);
+        inputs.extend_map([(*proc, proc.as_elements().to_vec())])
+    }
 
     // --- account seed -------------------------------------------------------
     if let Some(account_seed) = account_seed {

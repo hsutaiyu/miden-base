@@ -108,6 +108,11 @@ impl AccountCode {
         &self.module
     }
 
+    /// Returns a vector containing procedures as field elements.
+    pub fn as_elements(&self) -> Vec<Felt> {
+        procedures_as_elements(self.procedures())
+    }
+
     /// Returns a reference to the account procedure digests.
     pub fn procedures(&self) -> &[(Digest, Felt)] {
         &self.procedures
@@ -183,13 +188,18 @@ impl Deserializable for AccountCode {
 // HELPER FUNCTIONS
 // ================================================================================================
 
-fn build_procedure_commitment(procedures: &[(Digest, Felt)]) -> Digest {
+fn procedures_as_elements(procedures: &[(Digest, Felt)]) -> Vec<Felt> {
     let mut procedure_elements = Vec::with_capacity(procedures.len() * 2);
     for (proc_digest, storage_offset) in procedures {
         procedure_elements.extend_from_slice(proc_digest.as_elements());
         procedure_elements.extend_from_slice(&[*storage_offset, ZERO, ZERO, ZERO])
     }
-    Hasher::hash_elements(&procedure_elements)
+    procedure_elements
+}
+
+fn build_procedure_commitment(procedures: &[(Digest, Felt)]) -> Digest {
+    let elements = procedures_as_elements(procedures);
+    Hasher::hash_elements(&elements)
 }
 
 // TESTING

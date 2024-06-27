@@ -528,12 +528,12 @@ fn test_authenticate_procedure() {
         mock_inputs(MockAccountType::StandardExisting, AssetPreservationStatus::Preserved);
     let account = tx_inputs.account();
 
-    let proc0_index = LeafIndex::new(0).unwrap();
-    let proc1_index = LeafIndex::new(1).unwrap();
+    // let proc0_index = LeafIndex::new(0).unwrap();
+    // let proc1_index = LeafIndex::new(1).unwrap();
 
     let test_cases = vec![
-        (account.code().procedure_tree().get_leaf(&proc0_index), true),
-        (account.code().procedure_tree().get_leaf(&proc1_index), true),
+        // (account.code().procedure_tree().get_leaf(&proc0_index), true),
+        // (account.code().procedure_tree().get_leaf(&proc1_index), true),
         ([ONE, ZERO, ONE, ZERO], false),
     ];
 

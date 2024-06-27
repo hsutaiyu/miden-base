@@ -5,15 +5,15 @@ use crate::accounts::AccountCode;
 // The MAST root of the default account's interface. Use these constants to interact with the
 // account's procedures.
 const MASTS: [&str; 11] = [
-    "0xbb58a032a1c1989079dcc73c279d69dcdf41dd7ee923d99dc3f86011663ec167",
-    "0x549d264f00f1a6e90d47284e99eab6d0f93a3d41bb5324743607b6902978a809",
-    "0x704ed1af80a3dae74cd4aabeb4c217924813c42334c2695a74e2702af80a4a35",
-    "0xa27f4acf44ab50969468ea3fccbaae3893bd2117d2e0a60b7440df4ddb3a4585",
-    "0x646ab6d0a53288f01083943116d01f216e77adfe21a495ae8d4670b4be40facf",
-    "0x73c14f65d2bab6f52eafc4397e104b3ab22a470f6b5cbc86d4aa4d3978c8b7d4",
-    "0x55036198d82d2af653935226c644427162f12e2a2c6b3baf007c9c6f47462872",
-    "0xf484a84dad7f82e8eb1d5190b43243d02d9508437ff97522e14ebf9899758faa",
-    "0xf17acfc7d1eff3ecadd7a17b6d91ff01af638aa9439d6c8603c55648328702ae",
+    "0xc4fd3df6cc5f643b0e47b392b847486858a8c8609f459c185aa591974799b32b",
+    "0x6781e03de3f7b0607e53ceb9bd1ab6192ea4b5e97c094cbf5876a70a63804435",
+    "0xc2684bbd1c4aaefb825ee4e3a8144763d5c4dd25a697d93ab7b1d601660d0d0e",
+    "0xee383c4c6dbd69ca63cf0e49145b9eeda1e8d9af97355975647c19600d4d1837",
+    "0x984f8813133166ab411c8443dc0589d56a84ca837737c3459222e85f25ec701a",
+    "0x7191b3e62d06c9ba597d660099b34cb7e26780adba4ddd277ab1f507bd0b7dfb",
+    "0xd65d87033e43a4ce0805fbd02945e5500554ba5830644e48fd13da97417c278c",
+    "0x63bac36fa0332a5f9838c61eda6a2c06e72d653b30396b1e3f67b6e66e760ad2",
+    "0x599d7a6e28c35585860e301e2d8a241cad6da8214dbf8b7e896ce95459308591",
     "0xff06b90f849c4b262cbfbea67042c4ea017ea0e9c558848a951d44b23370bec5",
     "0x8ef0092134469a1330e3c468f57c7f085ce611645d09cc7516c786fefc71d794",
 ];
@@ -153,7 +153,7 @@ pub fn mock_account_code(assembler: &Assembler) -> AccountCode {
         code.procedures()[9].0.to_hex(),
         code.procedures()[10].0.to_hex(),
     ];
-    assert!(current == MASTS, "const MASTS: [&str; 11] = {:?};", current);
+    assert!(current == MASTS, "const MASTS: [&str; 11] = {:#?};", current);
 
     code
 }

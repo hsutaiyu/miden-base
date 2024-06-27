@@ -1,6 +1,5 @@
+use super::{AdviceProvider, BTreeMap, Digest, Felt, ProcessState};
 use miden_lib::transaction::TransactionKernelError;
-
-use super::{AdviceProvider, BTreeMap, Digest, ProcessState};
 
 // ACCOUNT PROCEDURE INDEX MAP
 // ================================================================================================
@@ -21,8 +20,11 @@ impl AccountProcedureIndexMap {
         // get the Merkle store with the procedure tree from the advice provider
         // let proc_store = adv_provider.get_store_subset([account_code_root].iter());
 
+        // get the account procedures from the advice_map
+        let procs = adv_provider.get_mapped_values(&account_code_root).unwrap();
+
         // iterate over all possible procedure indexes
-        let result = BTreeMap::new();
+        let mut result = BTreeMap::new();
 
         // for i in 0..AccountCode::MAX_NUM_PROCEDURES {
         //     let index = NodeIndex::new(AccountCode::PROCEDURE_TREE_DEPTH, i as u64)
@@ -37,6 +39,15 @@ impl AccountProcedureIndexMap {
         //         result.insert(proc_root, i as u8);
         //     }
         // }
+        //
+
+        let mut i = 0;
+        for chunk in procs.chunks_exact(8) {
+            let root: [Felt; 4] = chunk[0..4].try_into().expect("Slice with incorrect len.");
+            let _: [Felt; 4] = chunk[4..8].try_into().expect("Slice with incorrect len.");
+            result.insert(Digest::from(root), i);
+            i += 1;
+        }
 
         Self(result)
     }
