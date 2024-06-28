@@ -1,5 +1,6 @@
-use super::{AdviceProvider, BTreeMap, Digest, Felt, ProcessState};
 use miden_lib::transaction::TransactionKernelError;
+
+use super::{AdviceProvider, BTreeMap, Digest, Felt, ProcessState};
 
 // ACCOUNT PROCEDURE INDEX MAP
 // ================================================================================================

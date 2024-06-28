@@ -1,5 +1,3 @@
-use std::println;
-
 use alloc::vec::Vec;
 
 use miden_objects::{

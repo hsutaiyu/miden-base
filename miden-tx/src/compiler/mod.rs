@@ -75,7 +75,7 @@ impl TransactionCompiler {
             .map_err(TransactionCompilerError::LoadAccountFailed)?;
         self.account_procedures.insert(
             account_id,
-            account_code.procedures().into_iter().map(|(p, _)| *p).collect::<Vec<Digest>>(),
+            account_code.procedures().iter().map(|(p, _)| *p).collect::<Vec<Digest>>(),
         );
         Ok(account_code)
     }
