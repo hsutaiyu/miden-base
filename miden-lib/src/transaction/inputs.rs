@@ -244,8 +244,11 @@ fn add_account_to_advice_inputs(
     // --- account code -------------------------------------------------------
     let code = account.code();
 
-    // extend the advice_map with the account code data
-    inputs.extend_map([(*code.procedure_commitment(), code.as_elements())]);
+    // extend the advice_map with the account code data and procedure length
+    let num_procs = code.as_elements().len() / 8;
+    let mut procs = code.as_elements();
+    procs.insert(0, Felt::from(num_procs as u32));
+    inputs.extend_map([(*code.procedure_commitment(), procs)]);
 
     // --- account seed -------------------------------------------------------
     if let Some(account_seed) = account_seed {
