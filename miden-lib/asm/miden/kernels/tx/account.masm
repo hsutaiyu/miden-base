@@ -426,8 +426,8 @@ end
 #! - storage_offset is the procedure storage offset
 export.get_procedure_info
   # get procedure section ptr
-  exec.memory::get_account_procedures_section_offset add dup push.1 add swap
-  # => [acct_proc_elements_ptr, acct_proc_offset_ptr]
+  push.2 mul exec.memory::get_account_procedures_section_offset add dup push.1 add swap
+  # => [proc_ptr, offset_ptr]
 
   # load procedure information from memory
   padw movup.4 mem_loadw movup.4 mem_load movdn.4
@@ -447,7 +447,7 @@ export.authenticate_procedure
     # => [PROC_ELEMENTS, storage_offset, PROC_ROOT]
 
     # make sure stored proc root is the same as we got with the parameter
-    movup.4 movdn.8 assert_eqw
+    movup.4 movdn.8 assert_eqw.err=112
     # => [storage_offset]
 end
 

@@ -400,7 +400,6 @@ proc.validate_account_procedures
   # start looping
   padw padw padw push.1
   # => [PAD, PAD, PAD, 1, location, counter, len, ACCT_CODE_ROOT]
-  # => [PAD, PAD, PAD, 1, 700, 0, 11, ROOT]
 
   while.true
     # pipe elements from advice map and hash them

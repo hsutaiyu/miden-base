@@ -14,7 +14,10 @@ use miden_objects::{
         },
         AccountId, AccountType, SlotItem, StorageSlotType,
     },
-    crypto::{hash::rpo::RpoDigest, merkle::LeafIndex},
+    crypto::{
+        hash::{rpo::RpoDigest, Digest},
+        merkle::LeafIndex,
+    },
     testing::{
         account::MockAccountType,
         notes::AssetPreservationStatus,
@@ -538,6 +541,8 @@ fn test_authenticate_procedure() {
     let test_cases = vec![(tc_0, true), (tc_1, true), ([ONE, ZERO, ONE, ZERO], false)];
 
     for (root, valid) in test_cases.into_iter() {
+        println!("Root: {}, elements: {:?}", RpoDigest::from(root).to_hex(), root);
+
         let (tx_inputs, tx_args) =
             mock_inputs(MockAccountType::StandardExisting, AssetPreservationStatus::Preserved);
 
