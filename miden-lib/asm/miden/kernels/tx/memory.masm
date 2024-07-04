@@ -117,8 +117,11 @@ const.ACCT_NEW_CODE_ROOT_PTR=404
 # The memory offset at which the account data section ends (exclusive)
 const.ACCT_CORE_DATA_SECTION_END_OFFSET=404
 
-# The memory address at which the account storage slot type data beings
+# The memory address at which the account storage slot type data begins
 const.ACCT_STORAGE_SLOT_TYPE_DATA_OFFSET=405
+
+# The memory address at which the account procedures section begins.
+const.ACCT_PROCEDURES_SECTION_OFFSET=700
 
 # CONSUMED NOTES DATA
 # -------------------------------------------------------------------------------------------------
@@ -157,12 +160,6 @@ const.CREATED_NOTE_RECIPIENT_OFFSET=2
 const.CREATED_NOTE_ASSETS_HASH_OFFSET=3
 const.CREATED_NOTE_NUM_ASSETS_OFFSET=4
 const.CREATED_NOTE_ASSETS_OFFSET=5
-
-# ACCOUNT CODE
-# -------------------------------------------------------------------------------------------------
-
-# The memory address at which the account procedures section begins.
-const.ACCT_PROCEDURES_SECTION_OFFSET=6238912
 
 # MEMORY PROCEDURES
 # =================================================================================================

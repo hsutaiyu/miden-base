@@ -1,4 +1,4 @@
-use std::println;
+use std::{eprintln, println};
 #[cfg(feature = "std")]
 use std::{
     fs::File,
@@ -53,9 +53,16 @@ pub fn run_tx_with_inputs(
     let host = MockHost::new(tx.account().into(), advice_inputs);
     let mut process = Process::new_debug(program.kernel().clone(), stack_inputs, host);
     println!("Just before tx execute");
-    process.execute(&program)?;
-    println!("Just after tx execute");
-    Ok(process)
+    match process.execute(&program) {
+        Ok(_) => {
+            println!("Just after tx execute");
+            Ok(process)
+        },
+        Err(e) => {
+            eprintln!("Error during execution: {:?}", e);
+            Err(e)
+        },
+    }
 }
 
 /// Inject `code` along side the specified file and run it

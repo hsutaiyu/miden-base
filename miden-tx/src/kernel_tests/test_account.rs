@@ -1,3 +1,5 @@
+use std::println;
+
 use miden_lib::transaction::{
     memory::{ACCT_CODE_ROOT_PTR, ACCT_NEW_CODE_ROOT_PTR},
     ToTransactionKernelInputs,
@@ -528,14 +530,12 @@ fn test_authenticate_procedure() {
         mock_inputs(MockAccountType::StandardExisting, AssetPreservationStatus::Preserved);
     let account = tx_inputs.account();
 
-    // let proc0_index = LeafIndex::new(0).unwrap();
-    // let proc1_index = LeafIndex::new(1).unwrap();
+    println!("len: {}", account.code().procedures().len());
 
-    let test_cases = vec![
-        // (account.code().procedure_tree().get_leaf(&proc0_index), true),
-        // (account.code().procedure_tree().get_leaf(&proc1_index), true),
-        ([ONE, ZERO, ONE, ZERO], false),
-    ];
+    let tc_0: [Felt; 4] = account.code().procedures()[0].0.as_elements().try_into().unwrap();
+    let tc_1: [Felt; 4] = account.code().procedures()[1].0.as_elements().try_into().unwrap();
+
+    let test_cases = vec![(tc_0, true), (tc_1, true), ([ONE, ZERO, ONE, ZERO], false)];
 
     for (root, valid) in test_cases.into_iter() {
         let (tx_inputs, tx_args) =
