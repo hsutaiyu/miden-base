@@ -537,8 +537,10 @@ fn test_authenticate_procedure() {
 
     let tc_0: [Felt; 4] = account.code().procedures()[0].0.as_elements().try_into().unwrap();
     let tc_1: [Felt; 4] = account.code().procedures()[1].0.as_elements().try_into().unwrap();
+    let tc_2: [Felt; 4] = account.code().procedures()[2].0.as_elements().try_into().unwrap();
 
-    let test_cases = vec![(tc_0, true), (tc_1, true), ([ONE, ZERO, ONE, ZERO], false)];
+    let test_cases =
+        vec![(tc_0, true), (tc_1, true), (tc_2, true), ([ONE, ZERO, ONE, ZERO], false)];
 
     for (root, valid) in test_cases.into_iter() {
         println!("Root: {}, elements: {:?}", RpoDigest::from(root).to_hex(), root);

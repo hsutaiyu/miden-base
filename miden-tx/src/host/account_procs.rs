@@ -1,3 +1,5 @@
+use std::println;
+
 use miden_lib::transaction::TransactionKernelError;
 
 use super::{AdviceProvider, BTreeMap, Digest, Felt, ProcessState};
@@ -18,10 +20,22 @@ impl AccountProcedureIndexMap {
 
         let mut result = BTreeMap::new();
 
-        // iterate over all possible procedure indexes
-        for (proc_idx, proc_info) in procs.chunks_exact(8).enumerate() {
+        // // iterate over all possible procedure indexes
+        // for (proc_idx, proc_info) in procs.chunks_exact(8).enumerate() {
+        //     let root: [Felt; 4] = proc_info[0..4].try_into().expect("Slice with incorrect len.");
+        //     result.insert(Digest::from(root), proc_idx.try_into().unwrap());
+        // }
+
+        println!("Procs: {:?}", procs);
+        println!("Procs len: {}", procs.len());
+        for (proc_idx, proc_info) in procs[1..].chunks_exact(8).enumerate() {
             let root: [Felt; 4] = proc_info[0..4].try_into().expect("Slice with incorrect len.");
             result.insert(Digest::from(root), proc_idx.try_into().unwrap());
+            println!(
+                "Index map inserted root: {}, elements: {:?}",
+                Digest::from(root).to_hex(),
+                root
+            );
         }
 
         Self(result)

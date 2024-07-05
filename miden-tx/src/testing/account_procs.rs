@@ -26,6 +26,7 @@ impl AccountProcedureIndexMap {
         let mut result = BTreeMap::new();
 
         println!("Procs: {:?}", procs);
+        println!("Procs len: {}", procs.len());
         for (proc_idx, proc_info) in procs[1..].chunks_exact(8).enumerate() {
             let root: [Felt; 4] = proc_info[0..4].try_into().expect("Slice with incorrect len.");
             result.insert(Digest::from(root), proc_idx.try_into().unwrap());
